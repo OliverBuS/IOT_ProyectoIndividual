@@ -1,18 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sun"
+        android:layout_marginTop="56dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUCPMeet"
+        android:textSize="24sp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Inicio de Sesión"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        android:textSize="32sp"
+        />
+    <EditText
+        android:background="@drawable/custom_input"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="54dp"
+        android:hint="Código"
+        android:paddingStart="20dp"
+        />
+    <EditText
+        android:background="@drawable/custom_input"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="54dp"
+        android:hint="Contraseña"
+        android:paddingStart="20dp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSesion"
+            android:layout_marginTop="32dp"
+            android:layout_width="240dp"
+            android:layout_height="52dp"
+            android:text="Iniciar Sesión"
+            android:background="@drawable/custom_button"
+            android:textColor="#FFFFFF"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Te olvidaste tu contraseña?"
+            android:layout_below="@id/buttonSesion"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="5dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal">
+
+        <TextView
+            android:id="@+id/textLeftRegistrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿No tienes una cuenta?"
+            android:layout_marginBottom="32dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_toRightOf="@id/textLeftRegistrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrate"
+            android:layout_marginBottom="32dp"
+            android:textColor="#3BB76D"
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>
