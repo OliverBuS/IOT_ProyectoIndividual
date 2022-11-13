@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".CrearCuentaCorreoActivity">
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verificación de correo"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_email_140"
+        android:scaleX="1.14"
+        android:layout_marginTop="16dp"
+        />
+    <TextView
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:text="Se te ha enviado un código de verificación a tu correo."
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="16dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextCodigo"
+        android:layout_marginTop="32dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Código"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_key_27"
+        android:drawablePadding="8dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonContinuar"
+        android:layout_marginTop="40dp"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:text="continuar"
+        android:background="@drawable/custom_button"
+        />
+
+
+</LinearLayout>

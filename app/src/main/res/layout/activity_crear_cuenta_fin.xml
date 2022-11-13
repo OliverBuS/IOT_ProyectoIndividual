@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".CrearCuentaFinActivity">
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creación de cuenta"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_outline_24"
+        android:layout_marginTop="16dp"
+        />
+    <TextView
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:text="Tu cuenta ha sido creada. Ya puedes iniciar sesión con tus credenciales"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="32dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonContinuar"
+        android:layout_marginTop="104dp"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:text="volver"
+        android:background="@drawable/custom_button"
+        />
+
+</LinearLayout>

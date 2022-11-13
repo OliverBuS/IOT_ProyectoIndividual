@@ -62,6 +62,7 @@
             android:textColor="#FFFFFF"
             />
         <TextView
+            android:id="@+id/textPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿Te olvidaste tu contraseña?"
@@ -84,6 +85,7 @@
             android:textStyle="bold"/>
         <TextView
             android:layout_toRightOf="@id/textLeftRegistrate"
+            android:id="@+id/textRegistrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registrate"

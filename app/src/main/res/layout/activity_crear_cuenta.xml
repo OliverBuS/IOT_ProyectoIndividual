@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CrearCuentaActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Creación de cuenta"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            />
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Solo se permite una cuenta por estudiante"
+            />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editTextNombre"
+        android:layout_marginTop="32dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Nombre"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_person_24"
+        android:drawablePadding="8dp"
+        />
+    <EditText
+        android:id="@+id/editTextCodigo"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Codigo"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_contact_emergency_24"
+        android:drawablePadding="8dp"
+        />
+    <EditText
+        android:id="@+id/editTextCorreo"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Correo de la institución"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_email_27"
+        android:drawablePadding="8dp"
+        />
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Contraseña"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_key_27"
+        android:drawablePadding="8dp"
+        />
+    <EditText
+        android:id="@+id/editTextPassword2"
+        android:layout_marginTop="16dp"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:hint="Confirmar contraseña"
+        android:background="@drawable/custom_input"
+        android:paddingStart="16dp"
+        android:drawableStart="@drawable/ic_baseline_key_27"
+        android:drawablePadding="8dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonContinuar"
+        android:layout_marginTop="40dp"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:text="continuar"
+        android:background="@drawable/custom_button"
+        />
+
+
+
+
+</LinearLayout>
