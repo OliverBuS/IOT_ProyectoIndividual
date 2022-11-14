@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Amigos"
+        android:id="@+id/amigos"
+        android:icon="@drawable/ic_baseline_person_pin_27"/>
+    <item android:title="Reuniones"
+        android:id="@+id/reuniones"
+        android:icon="@drawable/ic_baseline_room_27"
+        />
+    <item android:title="Horario"
+        android:id="@+id/horario"
+        android:icon="@drawable/ic_baseline_calendar_month_27"/>
+    <item android:title="Perfil"
+        android:id="@+id/perfil"
+        android:icon="@drawable/ic_baseline_person_24"/>
+
+</menu>

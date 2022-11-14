@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cliente.Perfil"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp"
+            >
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imagenPerfil"
+                android:layout_marginTop="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_launcher_background"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView"
+                />
+
+            <ImageView
+                android:layout_alignRight="@id/imagenPerfil"
+                android:layout_marginTop="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit"
+                android:scaleX="1.5"
+                android:scaleY="1.5"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#242478"/>
+
+        <RelativeLayout
+            android:paddingVertical="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            >
+            <ImageView
+                android:id="@+id/imageName"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_person_24"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                />
+            <EditText
+                android:layout_toRightOf="@id/imageName"
+                android:layout_centerVertical="true"
+                android:layout_width="232dp"
+                android:layout_height="54dp"
+                android:text="Nombre de usuario"
+                android:background="@drawable/custom_input_perfil"
+                android:paddingStart="16dp"
+                android:textSize="16sp"
+
+                />
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="60dp"
+                android:layout_height="52dp"
+                android:src="@drawable/ic_save"
+                />
+
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#242478"/>
+
+        <RelativeLayout
+            android:paddingVertical="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            >
+            <ImageView
+                android:id="@+id/imageEstado"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_baseline_tag_faces_27"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                />
+            <EditText
+                android:layout_toRightOf="@id/imageEstado"
+                android:id="@+id/nombreUsuario"
+                android:layout_centerVertical="true"
+                android:layout_width="232dp"
+                android:layout_height="54dp"
+                android:text="Estado personalizado"
+                android:background="@drawable/custom_input_perfil"
+                android:paddingStart="16dp"
+                android:textSize="16sp"
+                />
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="60dp"
+                android:layout_height="52dp"
+                android:src="@drawable/ic_save"
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#242478"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+</FrameLayout>
