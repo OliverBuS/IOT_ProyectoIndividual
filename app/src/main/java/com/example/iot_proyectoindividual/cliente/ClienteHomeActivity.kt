@@ -18,7 +18,7 @@ class ClienteHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cliente_home)
+        setContentView(binding.root)
         replaceFragment(listaAmigosFragment)
 
         binding = ActivityClienteHomeBinding.inflate(layoutInflater)
