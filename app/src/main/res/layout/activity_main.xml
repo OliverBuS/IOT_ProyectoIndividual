@@ -31,6 +31,7 @@
         android:textSize="32sp"
         />
     <EditText
+        android:inputType="number"
         android:background="@drawable/custom_input"
         android:layout_marginTop="16dp"
         android:layout_width="280dp"
@@ -39,6 +40,7 @@
         android:paddingStart="20dp"
         />
     <EditText
+        android:inputType="textPassword"
         android:background="@drawable/custom_input"
         android:layout_marginTop="16dp"
         android:layout_width="280dp"
@@ -62,7 +64,7 @@
             android:textColor="#FFFFFF"
             />
         <TextView
-            android:id="@+id/textPassword"
+            android:id="@+id/textRecuperar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿Te olvidaste tu contraseña?"

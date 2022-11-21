@@ -18,10 +18,10 @@ class ClienteHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityClienteHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(listaAmigosFragment)
 
-        binding = ActivityClienteHomeBinding.inflate(layoutInflater)
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
