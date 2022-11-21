@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <color name="textFondo">#2b2831</color>
     <color name="seed">#060622</color>
     <color name="md_theme_light_primary">#5455A9</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
