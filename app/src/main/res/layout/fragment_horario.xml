@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="cliente.Horario"
     android:scrollbars="none">
 
@@ -26,6 +27,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/dia1"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
@@ -34,6 +36,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/dia2"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
@@ -42,6 +45,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/dia3"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
@@ -50,27 +54,29 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/dia4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:text="Jueves"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dia5"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:paddingHorizontal="20dp"
                     android:text="Viernes"
                     android:textSize="20sp" />
-
                 <TextView
+                    android:id="@+id/dia6"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:paddingHorizontal="20dp"
-                    android:text="Sábado"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="20dp"
-                    android:text="Domingo"
+                    android:text="Sabado"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -78,7 +84,13 @@
         </HorizontalScrollView>
 
 
-
+            <TextView
+                android:id="@+id/diaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lunes"
+                android:layout_marginTop="12dp"
+                android:textSize="24sp"/>
 
 
             <LinearLayout
@@ -86,9 +98,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_horizontal">
-
-
-
 
 
 
@@ -290,193 +299,205 @@
 
                 </LinearLayout>
 
-
-
-
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:orientation="vertical"
-                    android:paddingVertical="4dp">
+                    android:paddingVertical="4dp"
+                    app:cardCornerRadius="20dp">
 
-                    <TextView
-                        android:id="@+id/hora1"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/top_hours_selector"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
 
-                    <TextView
-                        android:id="@+id/hora2"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
 
-                    <TextView
-                        android:id="@+id/hora3"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/top_hours_selector"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora4"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora2"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora5"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora3"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora6"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora4"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora7"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora5"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora8"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora6"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora9"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora7"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora10"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora8"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora11"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora9"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora12"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora10"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora13"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/textFondo"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#605A7C" />
+                        <TextView
+                            android:id="@+id/hora11"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
 
-                    <TextView
-                        android:id="@+id/hora14"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bottom_hours_selector"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp" />
-                </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
+
+                        <TextView
+                            android:id="@+id/hora12"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
+
+                        <TextView
+                            android:id="@+id/hora13"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/textFondo"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#605A7C" />
+
+                        <TextView
+                            android:id="@+id/hora14"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bottom_hours_selector"
+                            android:gravity="center"
+                            android:paddingHorizontal="24dp" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+
 
             </LinearLayout>
                 <androidx.appcompat.widget.AppCompatButton

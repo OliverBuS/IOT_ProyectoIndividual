@@ -54,10 +54,9 @@ class Perfil : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         storageReference = Firebase.storage.reference.child(imgLink)
-
         varContext = view.context
+
 
         imPerfil = view.findViewById(R.id.imagenPerfil)
         val edNombre = view.findViewById<EditText>(R.id.edNombre)
@@ -66,7 +65,46 @@ class Perfil : Fragment() {
         val guardarEstado = view.findViewById<ImageView>(R.id.guardarEstado)
         val editarImagen = view.findViewById<ImageView>(R.id.editarImagen)
 
-        Glide.with(view.context).load(storageReference).diskCacheStrategy(DiskCacheStrategy.NONE)
+
+        val selectFoto =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val intent = result.data
+                    val imageUri = intent?.data
+                    imPerfil.setImageURI(imageUri)
+
+                    var bitmapImage = ImageProcess.handleSamplingAndRotationBitmap(context,imageUri)
+                    val witdh = bitmapImage.width
+                    val heigh = bitmapImage.height
+
+                    if(witdh>heigh) {
+                        bitmapImage = Bitmap.createBitmap(bitmapImage,(witdh/2)-(heigh/2) ,0, heigh, heigh )
+                    }else{
+                        bitmapImage = Bitmap.createBitmap(bitmapImage,0 ,(heigh/2)-(witdh/2), witdh, witdh)
+                    }
+
+                    val baos = ByteArrayOutputStream()
+                    bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    val dataimage = baos.toByteArray()
+
+
+                    if (imageUri != null) {
+                        storageReference.putBytes(dataimage).addOnSuccessListener {
+                            Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
+                        }.addOnCanceledListener {
+                            Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+        Glide.with(view.context).load(storageReference)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true).into(imPerfil)
         edNombre.setText(User.usuario.nombre ?: "...")
         edEstado.setText(User.usuario.estado ?: "...")
@@ -98,8 +136,6 @@ class Perfil : Fragment() {
                 .setTitle("Subir Foto")
                 .setMessage("¿Cómo va a cambiar su foto?")
                 .setNegativeButton("Galeria") { d, w ->
-
-
                     selectFoto.launch(
                         Intent(
                             Intent.ACTION_PICK,
@@ -142,7 +178,6 @@ class Perfil : Fragment() {
         }
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -178,38 +213,7 @@ class Perfil : Fragment() {
     }
 
 
-    private val selectFoto =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val intent = result.data
-                val imageUri = intent?.data
-                imPerfil.setImageURI(imageUri)
 
-                var bitmapImage = ImageProcess.handleSamplingAndRotationBitmap(context,imageUri)
-                val witdh = bitmapImage.width
-                val heigh = bitmapImage.height
-
-                if(witdh>heigh) {
-                    bitmapImage = Bitmap.createBitmap(bitmapImage,(witdh/2)-(heigh/2) ,0, heigh, heigh )
-                }else{
-                    bitmapImage = Bitmap.createBitmap(bitmapImage,0 ,(heigh/2)-(witdh/2), witdh, witdh)
-                }
-
-                val baos = ByteArrayOutputStream()
-                bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val dataimage = baos.toByteArray()
-
-
-                if (imageUri != null) {
-                    storageReference.putBytes(dataimage).addOnSuccessListener {
-                        Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
-                    }.addOnCanceledListener {
-                        Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            }
-        }
 
 
 }

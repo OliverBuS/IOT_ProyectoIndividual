@@ -1,10 +1,10 @@
 package com.example.iot_proyectoindividual.entity
 
 data class Horario(
-    val lunes: Int?=null,
-    val martes: Int?=null,
-    val miercoles: Int?=null,
-    val jueves: Int?=null,
-    val viernes: Int?=null,
-    val sabado: Int?=null
+    var lunes: Int?=null,
+    var martes: Int?=null,
+    var miercoles: Int?=null,
+    var jueves: Int?=null,
+    var viernes: Int?=null,
+    var sabado: Int?=null
 )

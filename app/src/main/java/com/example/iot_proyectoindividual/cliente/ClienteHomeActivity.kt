@@ -1,4 +1,4 @@
-package com.example.iot_proyectoindividual.cliente
+package com.example .iot_proyectoindividual.cliente
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,21 +17,70 @@ class ClienteHomeActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityClienteHomeBinding
+    object  NavValue {
+        var navPage:Int =0
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityClienteHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(listaAmigosFragment)
+
+        when(NavValue.navPage){
+            0->{
+                actionBar?.title = "Amigos"
+                supportActionBar?.title = "Amigos"
+                replaceFragment(listaAmigosFragment)
+            }
+            1->{
+                actionBar?.title = "Perfil"
+                supportActionBar?.title = "Perfil"
+                replaceFragment(perfilFragment)
+
+            }
+            2->{
+                actionBar?.title = "Horario"
+                supportActionBar?.title = "Horario"
+                replaceFragment(horarioFragment)
+
+            }
+            3->{
+                actionBar?.title = "Reuniones"
+                supportActionBar?.title = "Reuniones"
+                replaceFragment(reunionesFragment)
+            }
+        }
+
+
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.amigos -> replaceFragment(listaAmigosFragment)
-                R.id.perfil -> replaceFragment(perfilFragment)
-                R.id.horario -> replaceFragment(horarioFragment)
-                R.id.reuniones -> replaceFragment(reunionesFragment)
-
+                R.id.amigos -> {
+                    actionBar?.title = "Amigos"
+                    supportActionBar?.title = "Amigos"
+                    replaceFragment(listaAmigosFragment)
+                    NavValue.navPage=0
+                }
+                R.id.perfil -> {
+                    actionBar?.title = "Perfil"
+                    supportActionBar?.title = "Perfil"
+                    replaceFragment(perfilFragment)
+                    NavValue.navPage=1
+                }
+                R.id.horario -> {
+                    actionBar?.title = "Horario"
+                    supportActionBar?.title = "Horario"
+                    replaceFragment(horarioFragment)
+                    NavValue.navPage=2
+                }
+                R.id.reuniones -> {
+                    actionBar?.title = "Reuniones"
+                    supportActionBar?.title = "Reuniones"
+                    replaceFragment(reunionesFragment)
+                    NavValue.navPage=3
+                }
 
             }
             true
