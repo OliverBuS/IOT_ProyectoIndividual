@@ -1,4 +1,4 @@
-package com.example.iot_proyectoindividual.Entity
+package com.example.iot_proyectoindividual.entity
 
 data class Reunion(
     val descripcion: String,

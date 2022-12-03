@@ -1,60 +1,215 @@
 package com.example.iot_proyectoindividual.cliente
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.iot_proyectoindividual.R
+import com.example.iot_proyectoindividual.config.ImageProcess
+import com.example.iot_proyectoindividual.save.User
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.io.File
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Perfil.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Perfil : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+
         return inflater.inflate(R.layout.fragment_perfil, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Perfil.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Perfil().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private lateinit var imPerfil: ImageView
+    private lateinit var storageReference: StorageReference
+    private lateinit var varContext: Context
+    private val imgLink = "perfil/${User.uid}/img.jpg"
+    lateinit var currentPhotoPath: String
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        storageReference = Firebase.storage.reference.child(imgLink)
+
+        varContext = view.context
+
+        imPerfil = view.findViewById(R.id.imagenPerfil)
+        val edNombre = view.findViewById<EditText>(R.id.edNombre)
+        val edEstado = view.findViewById<EditText>(R.id.edEstado)
+        val guardarNombre = view.findViewById<ImageView>(R.id.guardarNombre)
+        val guardarEstado = view.findViewById<ImageView>(R.id.guardarEstado)
+        val editarImagen = view.findViewById<ImageView>(R.id.editarImagen)
+
+        Glide.with(view.context).load(storageReference).diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true).into(imPerfil)
+        edNombre.setText(User.usuario.nombre ?: "...")
+        edEstado.setText(User.usuario.estado ?: "...")
+
+        guardarNombre.setOnClickListener {
+            Firebase.database.reference.child("usuarios/${User.uid}/nombre")
+                .setValue(edNombre.text.toString()).addOnFailureListener {
+                    Toast.makeText(
+                        view.context,
+                        "Hubo un problema actualizando",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+        }
+        guardarEstado.setOnClickListener {
+            Firebase.database.reference.child("usuarios/${User.uid}/estado")
+                .setValue(edEstado.text.toString()).addOnFailureListener {
+                    Toast.makeText(
+                        view.context,
+                        "Hubo un problema actualizando",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+        editarImagen.setOnClickListener {
+
+            MaterialAlertDialogBuilder(view.context)
+                .setTitle("Subir Foto")
+                .setMessage("¿Cómo va a cambiar su foto?")
+                .setNegativeButton("Galeria") { d, w ->
+
+
+                    selectFoto.launch(
+                        Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                        )
+                    )
+                }.setPositiveButton("Cámara") { d, w ->
+
+                    val fileName = "img"
+                    val storageDirectory =
+                        context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                    try {
+                        val imageFile = File.createTempFile(fileName, ".jpg", storageDirectory)
+                        currentPhotoPath = imageFile.absolutePath
+                        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        val imageUri = context?.let { it1 ->
+                            FileProvider.getUriForFile(
+                                it1,
+                                "com.example.iot_proyectoindividual.fileprovider",
+                                imageFile
+                            )
+                        }
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                        startActivityForResult(intent, 1)
+                    } catch (e: java.lang.Exception) {
+                        Toast.makeText(
+                            view.context,
+                            e.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    //tomarFoto.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+                }
+                .setNeutralButton("Cancelar") { d, w ->
+
+                }
+                .show()
+
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            //var bitImage = BitmapFactory.decodeFile(currentPhotoPath)
+            val uriImage = Uri.fromFile(File(currentPhotoPath))
+            var bitmapImage = ImageProcess.handleSamplingAndRotationBitmap(context,uriImage)
+
+            val witdh = bitmapImage.width
+            val heigh = bitmapImage.height
+
+            if(witdh>heigh) {
+                bitmapImage = Bitmap.createBitmap(bitmapImage,(witdh/2)-(heigh/2) ,0, heigh, heigh )
+            }else{
+                bitmapImage = Bitmap.createBitmap(bitmapImage,0 ,(heigh/2)-(witdh/2), witdh, witdh)
+            }
+
+            MediaStore.Images.Media.insertImage(varContext.contentResolver,bitmapImage  , "Profile_PUCPMeet" , "Imagen de perfil");
+            imPerfil.setImageBitmap(bitmapImage)
+
+
+            val baos = ByteArrayOutputStream()
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val dataimage = baos.toByteArray()
+
+            storageReference.putBytes(dataimage).addOnSuccessListener {
+                Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
+            }.addOnCanceledListener {
+                Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
+    }
+
+
+    private val selectFoto =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                val imageUri = intent?.data
+                imPerfil.setImageURI(imageUri)
+
+                var bitmapImage = ImageProcess.handleSamplingAndRotationBitmap(context,imageUri)
+                val witdh = bitmapImage.width
+                val heigh = bitmapImage.height
+
+                if(witdh>heigh) {
+                    bitmapImage = Bitmap.createBitmap(bitmapImage,(witdh/2)-(heigh/2) ,0, heigh, heigh )
+                }else{
+                    bitmapImage = Bitmap.createBitmap(bitmapImage,0 ,(heigh/2)-(witdh/2), witdh, witdh)
+                }
+
+                val baos = ByteArrayOutputStream()
+                bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val dataimage = baos.toByteArray()
+
+
+                if (imageUri != null) {
+                    storageReference.putBytes(dataimage).addOnSuccessListener {
+                        Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
+                    }.addOnCanceledListener {
+                        Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             }
-    }
+        }
+
+
 }

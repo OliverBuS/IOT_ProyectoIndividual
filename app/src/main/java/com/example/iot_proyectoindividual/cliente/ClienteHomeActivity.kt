@@ -2,9 +2,11 @@ package com.example.iot_proyectoindividual.cliente
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.databinding.ActivityClienteHomeBinding
+import com.example.iot_proyectoindividual.save.User
 
 class ClienteHomeActivity : AppCompatActivity() {
 
@@ -18,11 +20,10 @@ class ClienteHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityClienteHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(listaAmigosFragment)
-
-
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
@@ -40,11 +41,9 @@ class ClienteHomeActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment){
-        if(fragment != null){
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frameLayout , fragment)
-            transaction.commit()
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout , fragment)
+        transaction.commit()
     }
 
 }

@@ -31,6 +31,7 @@
         android:textSize="32sp"
         />
     <EditText
+        android:id="@+id/edCodigo"
         android:inputType="number"
         android:background="@drawable/custom_input"
         android:layout_marginTop="16dp"
@@ -40,6 +41,7 @@
         android:paddingStart="20dp"
         />
     <EditText
+        android:id="@+id/edPassword"
         android:inputType="textPassword"
         android:background="@drawable/custom_input"
         android:layout_marginTop="16dp"
