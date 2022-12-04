@@ -6,29 +6,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".cliente.ClienteHomeActivity">
-
+    tools:context=".cliente.ClienteHomeActivity"
+    android:scrollbars="none"
+    android:splitMotionEvents="false">
 
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/bottomNavigationView">
-
+        android:layout_above="@id/bottomNavigationView"
+        >
     </FrameLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         app:menu="@menu/bottom_nav"
-        android:theme="@style/Theme.Material3.Dark"
+        android:theme="@style/Theme.IOT_ProyectoIndividual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
-
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:verticalScrollbarPosition="defaultPosition"
+        >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>
