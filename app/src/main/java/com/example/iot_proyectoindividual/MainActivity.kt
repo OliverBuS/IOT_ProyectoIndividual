@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         database = Firebase.database.reference
         mAuth = Firebase.auth
 
+
         binding.buttonSesion.setOnClickListener {
             iniciarSesion()
 
@@ -59,14 +60,24 @@ class MainActivity : AppCompatActivity() {
 
         database.child("correos/$codigo").get().addOnSuccessListener {
             if (it.exists()) {
-                mAuth.signInWithEmailAndPassword(it.value.toString(), password)
+                val correo = it.value.toString()
+                mAuth.signInWithEmailAndPassword(correo, password)
                     .addOnCompleteListener {
-                        if (it.isSuccessful) {
+                        if (it.isSuccessful &&  (mAuth.currentUser?.isEmailVerified == true or true)) {
                             User.uid= mAuth.currentUser!!.uid
                             database.child("usuarios/${mAuth.currentUser?.uid}").get()
                                 .addOnSuccessListener {
-                                    User.usuario = it.getValue<Usuario>()!!
-                                    goHome()
+                                    if(it.exists()){
+                                        User.usuario = it.getValue<Usuario>()!!
+                                        goHome()
+                                    } else{
+                                        Toast.makeText(
+                                            this,
+                                            "No hay registros del usuario",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
                                 }.addOnFailureListener {
                                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                             }

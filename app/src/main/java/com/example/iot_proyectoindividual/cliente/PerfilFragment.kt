@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.config.ImageProcess
+import com.example.iot_proyectoindividual.entity.Usuario
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.ktx.database
@@ -33,7 +34,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 
-class Perfil : Fragment() {
+class PerfilFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -90,6 +91,11 @@ class Perfil : Fragment() {
 
                     if (imageUri != null) {
                         storageReference.putBytes(dataimage).addOnSuccessListener {
+                            if(User.usuario.imagen?.contains(User.uid) == false) {
+                                Firebase.database.reference.child("usuarios/${User.uid}/imagen")
+                                    .setValue("${User.uid}/img.jpg")
+                                User.usuario.imagen = "${User.uid}/img.jpg"
+                            }
                             Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
                         }.addOnCanceledListener {
                             Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
@@ -102,8 +108,7 @@ class Perfil : Fragment() {
 
 
 
-
-        Glide.with(view.context).load(storageReference)
+        Glide.with(view.context).load(Firebase.storage.reference.child("perfil/${User.usuario.imagen!!}"))
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true).into(imPerfil)
         edNombre.setText(User.usuario.nombre ?: "...")
@@ -203,7 +208,13 @@ class Perfil : Fragment() {
             val dataimage = baos.toByteArray()
 
             storageReference.putBytes(dataimage).addOnSuccessListener {
+                if(User.usuario.imagen?.contains(User.uid) == false) {
+                    Firebase.database.reference.child("usuarios/${User.uid}/imagen")
+                        .setValue("${User.uid}/img.jpg")
+                    User.usuario.imagen = "${User.uid}/img.jpg"
+                }
                 Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
+
             }.addOnCanceledListener {
                 Toast.makeText(context, "Hubo un problema subiendo tu foto", Toast.LENGTH_SHORT)
                     .show()

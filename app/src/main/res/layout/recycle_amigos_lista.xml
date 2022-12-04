@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="104dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:id="@+id/imgPerfil"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView"
+        android:background="@color/textFondo"/>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imgPerfil"
+        android:layout_toStartOf="@id/opcionesLayout"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="16dp"
+        >
+
+        <TextView
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rodrigo"
+            />
+        <TextView
+            android:paddingVertical="5dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Haciendo lo mejor cada dia"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solicitud de amistad"
+            android:textColor="#A65DB1"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/opcionesLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/rechazarSolicitud"
+            android:padding="6dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/xcirclefill"
+            app:tint="@color/rojiso"
+            android:visibility="gone"/>
+        
+        <ImageView
+            android:id="@+id/aceptarSolicitud"
+            android:padding="6dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/checkfill"
+            app:tint="@color/verdoso"
+            android:visibility="gone"
+            />
+        <ImageView
+
+            android:padding="6dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/alarm"
+            android:visibility="gone"/>
+        <ImageView
+            android:padding="6dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/invite"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#5455A9"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>

@@ -32,6 +32,8 @@
     </RelativeLayout>
 
     <EditText
+        android:inputType="text"
+        android:maxLines="1"
         android:id="@+id/editTextNombre"
         android:layout_marginTop="32dp"
         android:layout_width="280dp"
@@ -43,6 +45,7 @@
         android:drawablePadding="8dp"
         />
     <EditText
+        android:inputType="number"
         android:id="@+id/editTextCodigo"
         android:layout_marginTop="16dp"
         android:layout_width="280dp"
@@ -54,28 +57,32 @@
         android:drawablePadding="8dp"
         />
     <EditText
+        android:inputType="textEmailAddress"
         android:id="@+id/editTextCorreo"
         android:layout_marginTop="16dp"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:hint="Correo de la institución"
+        android:hint="Correo"
         android:background="@drawable/custom_input"
         android:paddingStart="16dp"
         android:drawableStart="@drawable/ic_baseline_email_27"
         android:drawablePadding="8dp"
         />
+
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/editTextPassword"
-        android:layout_marginTop="16dp"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:hint="Contraseña"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_input"
-        android:paddingStart="16dp"
         android:drawableStart="@drawable/ic_baseline_key_27"
         android:drawablePadding="8dp"
-        />
+        android:hint="Contraseña"
+        android:paddingStart="16dp" />
+
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/editTextPassword2"
         android:layout_marginTop="16dp"
         android:layout_width="280dp"

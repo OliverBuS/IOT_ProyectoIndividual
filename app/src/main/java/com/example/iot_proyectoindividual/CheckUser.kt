@@ -11,7 +11,6 @@ import com.example.iot_proyectoindividual.save.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -57,7 +56,7 @@ class CheckUser : AppCompatActivity() {
         if(User.usuario?.rol.equals("admin")){
             Toast.makeText(this,"Por hacer", Toast.LENGTH_SHORT).show()
         } else{
-            val intent = Intent(this,ClienteHomeActivity::class.java)
+            val intent = Intent(this, ClienteHomeActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
         }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".cliente.Perfil"
+    tools:context=".cliente.PerfilFragment"
     android:orientation="vertical"
     android:scrollbars="none">
 
@@ -24,15 +24,14 @@
             >
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:scaleType="fitXY"
                 android:id="@+id/imagenPerfil"
-                android:layout_marginTop="40dp"
-                android:layout_centerInParent="true"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="40dp"
+                android:scaleType="fitXY"
                 android:src="@color/textFondo"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView"
-                />
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView" />
 
             <ImageView
                 android:id="@+id/editarImagen"

@@ -8,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.databinding.FragmentHorarioBinding
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 
-class Horario : Fragment() {
+class HorarioFragment : Fragment() {
 
 
     lateinit var binding: FragmentHorarioBinding
@@ -25,7 +23,7 @@ class Horario : Fragment() {
     lateinit var horariosDias: List<TextView>
 
     object stateSavedValues {
-        var estados: CharArray = CharArray(14)
+        var estados: CharArray = CharArray(15)
         var creado: Boolean = false
         var dia: String = "Lunes"
     }
@@ -39,12 +37,11 @@ class Horario : Fragment() {
         horariosBlocks = listOf(
             binding.hora1, binding.hora2, binding.hora3, binding.hora4, binding.hora5,
             binding.hora6, binding.hora7, binding.hora8, binding.hora9, binding.hora10,
-            binding.hora11, binding.hora12, binding.hora13, binding.hora14
+            binding.hora11, binding.hora12, binding.hora13, binding.hora14, binding.hora15
         )
         horariosDias = listOf(
             binding.dia1, binding.dia2, binding.dia3, binding.dia4, binding.dia5, binding.dia6
         )
-
         binding.diaTitulo.setText(stateSavedValues.dia)
         if (stateSavedValues.creado) {
             reloadVista()
@@ -61,142 +58,63 @@ class Horario : Fragment() {
 
         for (i in horariosBlocks) {
             i.setOnClickListener {
+                var x = 0
                 when (it.id) {
                     horariosBlocks[0].id -> {
-                        if (stateSavedValues.estados[0] == '1') {
-                            stateSavedValues.estados[0] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[0] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 0
                     }
                     horariosBlocks[1].id -> {
-                        if (stateSavedValues.estados[1] == '1') {
-                            stateSavedValues.estados[1] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[1] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 1
                     }
                     horariosBlocks[2].id -> {
-                        if (stateSavedValues.estados[2] == '1') {
-                            stateSavedValues.estados[2] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[2] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 2
                     }
                     horariosBlocks[3].id -> {
-                        if (stateSavedValues.estados[3] == '1') {
-                            stateSavedValues.estados[3] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[3] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 3
                     }
                     horariosBlocks[4].id -> {
-                        if (stateSavedValues.estados[4] == '1') {
-                            stateSavedValues.estados[4] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[4] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 4
                     }
                     horariosBlocks[5].id -> {
-                        if (stateSavedValues.estados[5] == '1') {
-                            stateSavedValues.estados[5] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[5] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 5
                     }
                     horariosBlocks[6].id -> {
-                        if (stateSavedValues.estados[6] == '1') {
-                            stateSavedValues.estados[6] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[6] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 6
                     }
                     horariosBlocks[7].id -> {
-                        if (stateSavedValues.estados[7] == '1') {
-                            stateSavedValues.estados[7] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[7] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 7
                     }
                     horariosBlocks[8].id -> {
-                        if (stateSavedValues.estados[8] == '1') {
-                            stateSavedValues.estados[8] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[8] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 8
                     }
                     horariosBlocks[9].id -> {
-                        if (stateSavedValues.estados[9] == '1') {
-                            stateSavedValues.estados[9] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[9] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 9
                     }
                     horariosBlocks[10].id -> {
-                        if (stateSavedValues.estados[10] == '1') {
-                            stateSavedValues.estados[10] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[10] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 10
                     }
                     horariosBlocks[11].id -> {
-                        if (stateSavedValues.estados[11] == '1') {
-                            stateSavedValues.estados[11] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[11] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 11
                     }
                     horariosBlocks[12].id -> {
-                        if (stateSavedValues.estados[12] == '1') {
-                            stateSavedValues.estados[12] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[12] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 12
                     }
                     horariosBlocks[13].id -> {
-                        if (stateSavedValues.estados[13] == '1') {
-                            stateSavedValues.estados[13] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[13] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 13
                     }
                     horariosBlocks[14].id -> {
-                        if (stateSavedValues.estados[14] == '1') {
-                            stateSavedValues.estados[14] = '0'
-                            it.setBackgroundColor(Color.parseColor("#2b2831"))
-                        } else {
-                            stateSavedValues.estados[14] = '1'
-                            it.setBackgroundColor(Color.parseColor("#55171a"))
-                        }
+                        x = 14
                     }
+                    horariosBlocks[15].id -> {
+                        x = 15
+                    }
+                }
+                if (stateSavedValues.estados[x] == '1') {
+                    stateSavedValues.estados[x] = '0'
+                    it.setBackgroundColor(Color.parseColor("#2b2831"))
+                } else {
+                    stateSavedValues.estados[x] = '1'
+                    it.setBackgroundColor(Color.parseColor("#55171a"))
                 }
             }
         }
@@ -249,9 +167,9 @@ class Horario : Fragment() {
                                 Toast.makeText(context, "Horario actualizado", Toast.LENGTH_SHORT)
                                     .show()
                             }.addOnFailureListener {
-                            Toast.makeText(context, "No se pudo actualizar", Toast.LENGTH_SHORT)
-                                .show()
-                        }
+                                Toast.makeText(context, "No se pudo actualizar", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                     }.show()
             }
 
@@ -291,8 +209,10 @@ class Horario : Fragment() {
 
 
     private fun setvista(horasOcupadas: Int) {
+
+
         stateSavedValues.estados = obtenerBinario(horasOcupadas).toCharArray()
-        for (i in 13 downTo 0 step 1) {
+        for (i in 14 downTo 0 step 1) {
             if (stateSavedValues.estados[i] == '0') {
                 horariosBlocks[i].setBackgroundColor(Color.parseColor("#2b2831"))
             } else {
@@ -303,7 +223,7 @@ class Horario : Fragment() {
     }
 
     private fun reloadVista() {
-        for (i in 13 downTo 0 step 1) {
+        for (i in 14 downTo 0 step 1) {
             if (stateSavedValues.estados[i] == '0') {
                 horariosBlocks[i].setBackgroundColor(Color.parseColor("#2b2831"))
             } else {
@@ -314,7 +234,7 @@ class Horario : Fragment() {
     }
 
     private fun obtenerBinario(numero: Int): String {
-        val len = 14
+        val len = 15
         return String.format(
             "%" + len + "s",
             Integer.toBinaryString(numero)

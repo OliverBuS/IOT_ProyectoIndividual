@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    tools:context=".cliente.NuevaReunionActivity"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Indicar la hora"
+            android:textStyle="bold"
+            android:textSize="22sp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_marginVertical="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            >
+            <TextView
+                android:id="@+id/horaInput"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00"
+                android:background="@color/textFondo"
+                android:backgroundTint="#434299"
+                android:textSize="54sp"
+                android:letterSpacing="0.042"
+                />
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lugar"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginBottom="12dp"/>
+
+
+
+
+        <fragment
+            android:id="@+id/mapa"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            map:cameraZoom="18"
+            map:uiRotateGestures="true"
+            map:uiZoomControls="true"
+            />
+
+
+
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textStyle="bold"
+            android:textSize="22sp"/>
+        <EditText
+            android:padding="8dp"
+            android:gravity="top"
+            android:hint="Añade una descripción al evento"
+            android:layout_marginTop="12dp"
+            android:id="@+id/edDesc"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/custom_input_perfil"/>
+
+
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_alignParentStart="true"
+                android:id="@+id/buCancelar"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:background="@drawable/custom_button"
+                android:textStyle="bold"
+                android:backgroundTint="#971C1C"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_alignParentEnd="true"
+                android:id="@+id/buCrear"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="Crear"
+                android:textStyle="bold"
+                android:background="@drawable/custom_button"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

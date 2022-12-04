@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:text="Se registro el cambio de su cuenta correctamente, puedes iniciar sesión con su nueva contraseña"
+        android:text="Se te ha enviado un link a tu correo para que cambies tu contraseña"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:layout_marginTop="32dp"
