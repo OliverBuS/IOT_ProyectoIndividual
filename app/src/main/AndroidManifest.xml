@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -28,7 +27,17 @@
         android:theme="@style/Theme.IOT_ProyectoIndividual"
         tools:targetApi="31">
         <activity
-            android:name=".cliente.VerReuinionActivity"
+            android:name=".cliente.VerInvitadosActivity"
+            android:exported="false"
+            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar"
+            android:label="Invitados"
+            >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".cliente.VerReunionActivity"
             android:exported="false"
             android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar">
             <meta-data

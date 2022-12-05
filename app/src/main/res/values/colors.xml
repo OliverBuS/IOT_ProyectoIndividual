@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <color name="verde">#307E0B</color>
     <color name="rojiso">#971C1C</color>
     <color name="verdoso">#63B662</color>
     <color name="textFondo">#2b2831</color>

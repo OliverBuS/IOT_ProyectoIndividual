@@ -39,10 +39,11 @@ class ReunionesFragment : Fragment() {
         binding = FragmentReunionesBinding.inflate(layoutInflater)
         recycle = binding.recycleView
         reference = Firebase.database.reference
+
         reference.child("invitaciones/${User.uid}").addValueEventListener(object : ValueEventListener
         {
-            var listaInvitaciones = ArrayList<ReunionNotificacion>()
             override fun onDataChange(snapshot: DataSnapshot) {
+                var listaInvitaciones = ArrayList<ReunionNotificacion>()
                 for (i in snapshot.children){
                     if(i.exists()) {
                         var amigo = Amigo()
