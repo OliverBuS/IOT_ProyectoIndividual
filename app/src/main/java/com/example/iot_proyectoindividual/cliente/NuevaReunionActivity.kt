@@ -2,6 +2,7 @@ package com.example.iot_proyectoindividual.cliente
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.Toast
 import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.databinding.ActivityNuevaReunionBinding
 import com.example.iot_proyectoindividual.entity.Reunion
+import com.example.iot_proyectoindividual.entity.ReunionEmpty
 import com.example.iot_proyectoindividual.save.Coordenadas
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,7 +33,7 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
     private lateinit var map : GoogleMap
     private lateinit var binding : ActivityNuevaReunionBinding
     private lateinit var reference: DatabaseReference
-    private var hora = 0
+    private var hora = 12
     private var minutos=0
 
     private var disponible=0
@@ -51,6 +53,7 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
 
         disponible = intent.getIntExtra("disponible",0)
         uid = intent.getStringExtra("uid")
+
 
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -117,8 +120,16 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
                reference.child("invitados/$reuId/$uid").setValue("pendiente").addOnSuccessListener {
                    reference.child("invitaciones/$uid/${User.uid}").setValue(reuId).addOnSuccessListener {
                        reference.child("invitados/$reuId/${User.uid}").setValue("asiste").addOnSuccessListener {
-                           Toast.makeText(this,"Reunion Creada con exito",Toast.LENGTH_SHORT).show()
-                           finish()
+                           reference.child("activos/${User.uid}").setValue(reuId).addOnSuccessListener {
+                               Toast.makeText(this,"Reunion Creada con exito",Toast.LENGTH_SHORT).show()
+                               User.reunion= ReunionEmpty()
+                               User.reunion!!.hora = reunion.hora
+                               User.reunion!!.descripcion = reunion.descripcion
+                               User.reunion!!.latitud = reunion.latitud
+                               User.reunion!!.longitud = reunion.longitud
+                               User.reunionId=reuId
+                               finish()
+                           }
                        }
                    }
                }

@@ -66,6 +66,8 @@ class AmigosAdapter(var context: Context, var lista: ArrayList<Amigo>) :
                 viewHolder.exIcon.visibility = View.GONE
                 viewHolder.sendIcon.visibility = View.VISIBLE
                 viewHolder.sendIcon.setOnClickListener {
+
+
                     val intent = Intent(context, NuevaReunionActivity::class.java)
                     intent.putExtra("uid", amigo.uid)
                     intent.putExtra("disponible", amigo.disponible)
@@ -84,7 +86,12 @@ class AmigosAdapter(var context: Context, var lista: ArrayList<Amigo>) :
                 viewHolder.exIcon.visibility = View.GONE
                 viewHolder.alarmIcon.visibility = View.VISIBLE
                 viewHolder.alarmIcon.setOnClickListener {
-                    context.startActivity(Intent(context, NuevaReunionActivity::class.java))
+
+
+                    val intent = Intent(context, NuevaReunionActivity::class.java)
+                    intent.putExtra("uid", amigo.uid)
+                    intent.putExtra("disponible", amigo.disponible)
+                    context.startActivity(intent)
                 }
             }
         }

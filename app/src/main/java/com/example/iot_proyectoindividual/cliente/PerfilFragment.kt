@@ -26,6 +26,7 @@ import com.example.iot_proyectoindividual.config.ImageProcess
 import com.example.iot_proyectoindividual.entity.Usuario
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
@@ -51,13 +52,13 @@ class PerfilFragment : Fragment() {
     private lateinit var varContext: Context
     private val imgLink = "perfil/${User.uid}/img.jpg"
     lateinit var currentPhotoPath: String
-
+    private lateinit var reference: DatabaseReference
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         storageReference = Firebase.storage.reference.child(imgLink)
         varContext = view.context
-
+        reference = Firebase.database.reference
 
         imPerfil = view.findViewById(R.id.imagenPerfil)
         val edNombre = view.findViewById<EditText>(R.id.edNombre)
@@ -95,6 +96,7 @@ class PerfilFragment : Fragment() {
                                 Firebase.database.reference.child("usuarios/${User.uid}/imagen")
                                     .setValue("${User.uid}/img.jpg")
                                 User.usuario.imagen = "${User.uid}/img.jpg"
+                                reference.child("amigos/${User.uid}/imagen").setValue(User.usuario.imagen)
                             }
                             Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
                         }.addOnCanceledListener {
@@ -115,6 +117,7 @@ class PerfilFragment : Fragment() {
         edEstado.setText(User.usuario.estado ?: "...")
 
         guardarNombre.setOnClickListener {
+            User.usuario.nombre = edNombre.text.toString()
             Firebase.database.reference.child("usuarios/${User.uid}/nombre")
                 .setValue(edNombre.text.toString()).addOnFailureListener {
                     Toast.makeText(
@@ -123,9 +126,17 @@ class PerfilFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     )
                         .show()
+                }.addOnSuccessListener {
+                    Toast.makeText(
+                        view.context,
+                        "Nombre Actualizado",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            reference.child("amigos/${User.uid}/nombre").setValue(User.usuario.nombre)
         }
         guardarEstado.setOnClickListener {
+            User.usuario.estado = edEstado.text.toString()
             Firebase.database.reference.child("usuarios/${User.uid}/estado")
                 .setValue(edEstado.text.toString()).addOnFailureListener {
                     Toast.makeText(
@@ -133,7 +144,14 @@ class PerfilFragment : Fragment() {
                         "Hubo un problema actualizando",
                         Toast.LENGTH_SHORT
                     ).show()
+                }. addOnSuccessListener {
+                    Toast.makeText(
+                        view.context,
+                        "Estado actualizado",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            reference.child("amigos/${User.uid}/estado").setValue(User.usuario.estado)
         }
         editarImagen.setOnClickListener {
 
@@ -212,6 +230,7 @@ class PerfilFragment : Fragment() {
                     Firebase.database.reference.child("usuarios/${User.uid}/imagen")
                         .setValue("${User.uid}/img.jpg")
                     User.usuario.imagen = "${User.uid}/img.jpg"
+                    reference.child("amigos/${User.uid}/imagen").setValue(User.usuario.imagen)
                 }
                 Toast.makeText(context, "Se actualizó tu foto", Toast.LENGTH_SHORT).show()
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.adapter.ReunionesAdapter
 import com.example.iot_proyectoindividual.databinding.FragmentReunionesBinding
 import com.example.iot_proyectoindividual.entity.Amigo
@@ -40,6 +39,7 @@ class ReunionesFragment : Fragment() {
         recycle = binding.recycleView
         reference = Firebase.database.reference
 
+
         reference.child("invitaciones/${User.uid}").addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -53,11 +53,13 @@ class ReunionesFragment : Fragment() {
                             listaInvitaciones.add(reuNot)
                         }
                     }
-                    invitaciones = listaInvitaciones
-                    reloadLista()
+
                 }
-
-
+                invitaciones = listaInvitaciones
+                if(listaInvitaciones.isEmpty()){
+                    activity?.recreate()
+                }
+                reloadLista()
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.databinding.ActivityVerReunionBinding
+import com.example.iot_proyectoindividual.entity.ReunionEmpty
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -59,9 +60,15 @@ class VerReunionActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.buAceptar.setOnClickListener {
             reference.child("invitados/$idReunion/${User.uid}").setValue("asiste").addOnSuccessListener {
-                reference.child("invitaciones/${User.uid}/$idAmigo").removeValue().addOnSuccessListener {
+                reference.child("invitaciones/${User.uid}").removeValue().addOnSuccessListener {
                     reference.child("activos/${User.uid}").setValue(idReunion).addOnSuccessListener {
                         Toast.makeText(this,"Se acepto la invitación",Toast.LENGTH_SHORT).show()
+                        User.reunion= ReunionEmpty()
+                        User.reunion!!.hora = hora
+                        User.reunion!!.descripcion = desc
+                        User.reunion!!.latitud = lat
+                        User.reunion!!.longitud = lon
+                        User.reunionId=idReunion
                         finish()
                     }
                 }
@@ -70,7 +77,7 @@ class VerReunionActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.buRechazar.setOnClickListener {
             reference.child("invitados/$idReunion/${User.uid}").setValue("cancela").addOnSuccessListener {
-                reference.child("invitaciones/${User.uid}/$idAmigo").removeValue().addOnSuccessListener {
+                reference.child("invitaciones/${User.uid}").removeValue().addOnSuccessListener {
                     Toast.makeText(this,"Se rechazo la invitación",Toast.LENGTH_SHORT).show()
                     finish()
                 }
@@ -84,6 +91,8 @@ class VerReunionActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
     }
+
+
 
     override fun onMapReady(p0: GoogleMap) {
         map = p0

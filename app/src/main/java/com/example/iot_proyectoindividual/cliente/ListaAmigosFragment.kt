@@ -129,8 +129,9 @@ class ListaAmigosFragment : Fragment() {
     }
 
     public fun reset() {
+        //reference = Firebase.database.reference
         savedTemp.created=false
-        reference.child(savedTemp.path).removeEventListener(listener)
+        //reference.child(savedTemp.path).removeEventListener(listener)
         super.onDestroy()
     }
 

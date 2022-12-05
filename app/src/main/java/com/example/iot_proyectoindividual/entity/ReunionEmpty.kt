@@ -1,8 +1,8 @@
 package com.example.iot_proyectoindividual.entity
 
 data class ReunionEmpty(
-    val descripcion: String?=null,
-    val hora: String?=null,
-    val latitud:Double?=null,
-    val longitud:Double?=null
+    var descripcion: String?=null,
+    var hora: String?=null,
+    var latitud:Double?=null,
+    var longitud:Double?=null
 )
