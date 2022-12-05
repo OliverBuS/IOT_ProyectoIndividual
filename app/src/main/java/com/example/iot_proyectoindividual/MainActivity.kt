@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                 val correo = it.value.toString()
                 mAuth.signInWithEmailAndPassword(correo, password)
                     .addOnCompleteListener {
-                        if (it.isSuccessful &&  (mAuth.currentUser?.isEmailVerified == true or true)) {
+                        //mAuth.currentUser?.isEmailVerified == true
+                        if (it.isSuccessful ) {
                             User.uid= mAuth.currentUser!!.uid
                             database.child("usuarios/${mAuth.currentUser?.uid}").get()
                                 .addOnSuccessListener {

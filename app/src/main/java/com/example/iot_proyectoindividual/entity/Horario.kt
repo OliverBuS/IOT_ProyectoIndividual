@@ -15,7 +15,7 @@ data class Horario(
 
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
-        var binHoras = "0"
+        var binHoras = MyFunctions.obtenerBinario(0)
 
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
 
@@ -55,14 +55,13 @@ data class Horario(
             horaLibre++
         }
 
-        return 30
+        return -1
     }
 
     fun disponible(hora : Int) : Int {
-
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
-        var binHoras = "0"
+        var binHoras = MyFunctions.obtenerBinario(0)
 
         val hour = hora
 
@@ -102,6 +101,6 @@ data class Horario(
             horaLibre++
         }
 
-        return 30
+        return -1
     }
 }

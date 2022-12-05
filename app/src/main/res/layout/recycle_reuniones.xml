@@ -11,7 +11,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="@color/textFondo"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView"/>
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.circleImageView" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,22 +32,13 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/teEstado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:text="Haciendo lo mejor cada dia"
-            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/teTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Solicitud de amistad"
+            android:text="Invitacion"
             android:textColor="#A65DB1" />
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -58,40 +49,15 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp">
-
         <ImageView
-            android:id="@+id/rechazarSolicitud"
+            android:id="@+id/verReunion"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:padding="6dp"
-            android:src="@drawable/xcirclefill"
+            android:src="@drawable/reunionicon"
             android:visibility="visible"
-            app:tint="@color/rojiso" />
+            />
 
-        <ImageView
-            android:id="@+id/aceptarSolicitud"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:padding="6dp"
-            android:src="@drawable/checkfill"
-            android:visibility="visible"
-            app:tint="@color/verdoso" />
-
-        <ImageView
-            android:id="@+id/invitarDespues"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:padding="6dp"
-            android:src="@drawable/alarm"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/invitar"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:padding="6dp"
-            android:src="@drawable/invite"
-            android:visibility="gone" />
     </LinearLayout>
 
     <View

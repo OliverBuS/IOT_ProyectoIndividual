@@ -88,9 +88,14 @@ class CrearCuentaActivity : AppCompatActivity() {
                                 usuario.rol="usuario"
                                 usuario.imagen="default/img.jpg"
                                 database.child("usuarios/${uid}").setValue(usuario).addOnSuccessListener {
-                                    intent = Intent(this,CrearCuentaFinActivity::class.java)
-                                    intent.flags=(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                    startActivity(intent)
+
+                                    database.child("codigos/${codigo}").setValue(uid).addOnSuccessListener {
+                                        intent = Intent(this,CrearCuentaFinActivity::class.java)
+                                        intent.flags=(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                        startActivity(intent)
+                                    }.addOnFailureListener {
+                                        Toast.makeText(this, "Hubo un problema terminando el registro",Toast.LENGTH_SHORT).show()
+                                    }
                                 }.addOnFailureListener{
                                     Toast.makeText(this, "Hubo un problema terminando el registro",Toast.LENGTH_SHORT).show()
                                 }

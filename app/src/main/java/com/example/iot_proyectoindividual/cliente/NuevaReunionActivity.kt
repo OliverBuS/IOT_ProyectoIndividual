@@ -1,13 +1,17 @@
 package com.example.iot_proyectoindividual.cliente
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.example.iot_proyectoindividual.R
 import com.example.iot_proyectoindividual.databinding.ActivityNuevaReunionBinding
+import com.example.iot_proyectoindividual.entity.Reunion
 import com.example.iot_proyectoindividual.save.Coordenadas
+import com.example.iot_proyectoindividual.save.User
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +20,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
@@ -23,19 +30,27 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
 
     private lateinit var map : GoogleMap
     private lateinit var binding : ActivityNuevaReunionBinding
+    private lateinit var reference: DatabaseReference
     private var hora = 0
     private var minutos=0
 
-
+    private var disponible=0
+    private var uid : String? = null
 
     private var coordinates = LatLng(Coordenadas.lat,Coordenadas.lon)
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        reference = Firebase.database.reference
+        supportActionBar?.title = "Crear Reunión"
         binding = ActivityNuevaReunionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        disponible = intent.getIntExtra("disponible",0)
+        uid = intent.getStringExtra("uid")
 
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -63,14 +78,52 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
         }
 
         binding.buCancelar.setOnClickListener {
-            //TODO
+            finish()
         }
 
         binding.buCrear.setOnClickListener {
-            //TODO
+            crearReunion()
         }
 
 
+    }
+
+
+    private fun crearReunion(){
+        val calendar = Calendar.getInstance()
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+        val currentMinutes = calendar.get(Calendar.MINUTE)
+        if( (hora<currentHour && minutos<currentMinutes)){
+            Toast.makeText(this,"La hora no es correcta",Toast.LENGTH_SHORT).show()
+            return
+        }else if( hora< disponible){
+            Toast.makeText(this,"Tu amigo no está disponible",Toast.LENGTH_SHORT).show()
+            return
+        } else if( hora-currentHour>3){
+            Toast.makeText(this,"No se permite crear excediendo las 3 horas",Toast.LENGTH_SHORT).show()
+        }
+        val descText = binding.edDesc.text.toString().trim()
+
+        if(descText.isEmpty()){
+            binding.edDesc.error="Describa la reunión"
+            return
+        }
+
+        val reunion = Reunion(descText,binding.horaInput.text.toString(),coordinates.latitude,coordinates.longitude)
+        val refReunion = reference.child("reuniones")
+        val reuId = refReunion.push().key
+        if (reuId != null) {
+            refReunion.child(reuId).setValue(reunion).addOnSuccessListener {
+               reference.child("invitados/$reuId/$uid").setValue("pendiente").addOnSuccessListener {
+                   reference.child("invitaciones/$uid/${User.uid}").setValue(reuId).addOnSuccessListener {
+                       reference.child("invitados/$reuId/${User.uid}").setValue("asiste").addOnSuccessListener {
+                           Toast.makeText(this,"Reunion Creada con exito",Toast.LENGTH_SHORT).show()
+                           finish()
+                       }
+                   }
+               }
+            }
+        }
     }
 
 

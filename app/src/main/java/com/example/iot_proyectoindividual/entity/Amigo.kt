@@ -1,10 +1,15 @@
 package com.example.iot_proyectoindividual.entity
 
 
-data class Amigo(val nombre:String? =null,
-                 val estado:String?=null,
-                 val disponible:Boolean?=null,
-                 val imagenNombre:String?=null)
-{
-    constructor() :this (null,null,null,null)
+
+data class Amigo (
+    var uid: String? = null,
+    var nombre: String? = null,
+    var estado: String? = null,
+    var disponible: Int? = null,
+    var imagen: String? = null,
+    var time: String? = null,
+    var tipo: String? = null
+) {
+
 }

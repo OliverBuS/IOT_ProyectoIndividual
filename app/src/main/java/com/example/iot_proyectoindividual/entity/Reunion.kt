@@ -5,5 +5,4 @@ data class Reunion(
     val hora: String,
     val latitud:Double,
     val longitud:Double,
-    val invitados:List<Invitado>
 )
