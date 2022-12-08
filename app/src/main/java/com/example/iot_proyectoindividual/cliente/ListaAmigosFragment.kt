@@ -69,8 +69,6 @@ class ListaAmigosFragment : Fragment() {
         savedTemp.path = "relaciones/${User.uid}"
 
         var listaListener: ValueEventListener? = null
-        if (!savedTemp.created) {
-            savedTemp.created=true
            listener= reference.child("relaciones/${User.uid}")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -121,9 +119,6 @@ class ListaAmigosFragment : Fragment() {
                     override fun onCancelled(databaseError: DatabaseError) {
                     }
                 })
-        } else{
-            listarAmigos()
-        }
 
         return binding.root
     }
@@ -140,10 +135,8 @@ class ListaAmigosFragment : Fragment() {
 
 
     private fun listarAmigos() {
-
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = context?.let { AmigosAdapter(it, ArrayList(RelacionesUsuario.amigos.values)) }
-
 
     }
 

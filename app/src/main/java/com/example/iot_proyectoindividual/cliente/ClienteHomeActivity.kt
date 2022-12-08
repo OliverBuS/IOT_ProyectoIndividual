@@ -1,5 +1,6 @@
 package com.example.iot_proyectoindividual.cliente
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -12,8 +13,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.iot_proyectoindividual.MainActivity
 import com.example.iot_proyectoindividual.R
+import com.example.iot_proyectoindividual.background.LocationService
 import com.example.iot_proyectoindividual.databinding.ActivityClienteHomeBinding
 import com.example.iot_proyectoindividual.entity.Amigo
+import com.example.iot_proyectoindividual.entity.Ban
 import com.example.iot_proyectoindividual.entity.ReunionEmpty
 import com.example.iot_proyectoindividual.entity.Usuario
 import com.example.iot_proyectoindividual.save.RelacionesUsuario
@@ -22,7 +25,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
@@ -43,18 +49,26 @@ class ClienteHomeActivity : AppCompatActivity() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var binding: ActivityClienteHomeBinding
+    private lateinit var context:Context
 
     object NavValue {
         var navPage: Int = 0;
         var ejecutado: Boolean = false
+        var active: Boolean = true
+        var ban: Ban? = null
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityClienteHomeBinding.inflate(layoutInflater)
+
+
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         ref = Firebase.database.reference
-
-
+        context=this
         ref.child("activos/${User.uid}").get().addOnSuccessListener {
             if (it.exists()) {
                 User.reunionId = it.getValue<String>()!!
@@ -68,31 +82,63 @@ class ClienteHomeActivity : AppCompatActivity() {
             }
         }
 
-        binding = ActivityClienteHomeBinding.inflate(layoutInflater)
+        ref.child("usuarios/${User.uid}/ban").addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val banID = snapshot.getValue<String>()
+                if(banID!=null){
+                    ref.child("baneos/$banID").get().addOnSuccessListener {
+                        val ban = it.getValue<Ban>()
+                        if(ban!=null){
+                            NavValue.ban = ban
+                            closeBan(ban)
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
         setContentView(binding.root)
-        getLocation()
+        //getLocation()
+
+        if(!NavValue.ejecutado){
+            NavValue.ejecutado=true
+            Intent(this,LocationService::class.java).apply {
+                action = LocationService.ACTION_START
+                startService(this)
+            }
+        }
 
 
         when (NavValue.navPage) {
             0 -> {
+                binding.bottomNavigationView.selectedItemId = R.id.amigos
                 actionBar?.title = "Amigos"
                 supportActionBar?.title = "Amigos"
                 replaceFragment(listaAmigosFragment)
             }
             1 -> {
+                binding.bottomNavigationView.selectedItemId = R.id.perfil
+
                 actionBar?.title = "Perfil"
                 supportActionBar?.title = "Perfil"
                 replaceFragment(perfilFragment)
 
             }
             2 -> {
+                binding.bottomNavigationView.selectedItemId = R.id.horario
+
                 actionBar?.title = "Horario"
                 supportActionBar?.title = "Horario"
                 replaceFragment(horarioFragment)
 
-
             }
             3 -> {
+                binding.bottomNavigationView.selectedItemId = R.id.reuniones
                 actionBar?.title = "Reuniones"
                 supportActionBar?.title = "Reuniones"
                 if (User.reunion == null) {
@@ -102,7 +148,6 @@ class ClienteHomeActivity : AppCompatActivity() {
                 }
             }
         }
-
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -141,6 +186,53 @@ class ClienteHomeActivity : AppCompatActivity() {
             true
         }
 
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        NavValue.active=false
+    }
+
+    override fun onStart() {
+        super.onStart()
+        NavValue.active=true
+        if(NavValue.ban!=null){
+            closeBan(NavValue.ban!!)
+        }
+    }
+
+
+    private fun closeBan(ban : Ban){
+        if(!NavValue.active){
+            return
+        }
+        val dateFormat =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val dateForma2 =  SimpleDateFormat("dd/MM/yyy-HH:mm:ss")
+        val fechaFin = dateForma2.format(dateFormat.parse(ban?.fin ?: "" ))
+
+        MaterialAlertDialogBuilder(this).setTitle("Tu cuenta está baneada")
+            .setMessage("Razón: ${ban.razon}\nFin: ${fechaFin}\nSi cree que es un error contactese con ${ban.contacto}")
+            .setPositiveButton("aceptar"){_,_->
+                Firebase.auth.signOut()
+                User.usuario = Usuario()
+                User.uid = ""
+                RelacionesUsuario.amigos = hashMapOf()
+                RelacionesUsuario.lista = hashMapOf()
+                NavValue.navPage = 0
+                listaAmigosFragment.reset()
+                User.reunion = null
+                User.reunionId = ""
+                NavValue.ejecutado=false
+                NavValue.ban = null
+                Intent(this,LocationService::class.java).apply {
+                    action = LocationService.ACTION_STOP
+                    startService(this)
+                }
+                intent = Intent(this, MainActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }.setCancelable(false).show()
 
     }
 
@@ -209,6 +301,15 @@ class ClienteHomeActivity : AppCompatActivity() {
                         NavValue.navPage = 0
                         listaAmigosFragment.reset()
                         User.reunion = null
+                        User.reunionId = ""
+                        NavValue.ejecutado=false
+                        NavValue.ban = null
+
+                        Intent(this,LocationService::class.java).apply {
+                            action = LocationService.ACTION_STOP
+                            startService(this)
+                        }
+
                         intent = Intent(this, MainActivity::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         startActivity(intent)

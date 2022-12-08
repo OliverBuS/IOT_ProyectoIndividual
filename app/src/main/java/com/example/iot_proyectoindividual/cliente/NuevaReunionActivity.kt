@@ -41,6 +41,8 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
 
     private var coordinates = LatLng(Coordenadas.lat,Coordenadas.lon)
 
+
+
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -102,8 +104,9 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
         }else if( hora< disponible){
             Toast.makeText(this,"Tu amigo no está disponible",Toast.LENGTH_SHORT).show()
             return
-        } else if( hora-currentHour>3){
-            Toast.makeText(this,"No se permite crear excediendo las 3 horas",Toast.LENGTH_SHORT).show()
+        } else if( hora-currentHour>2){
+            Toast.makeText(this,"No se permite crear excediendo las 2 horas",Toast.LENGTH_SHORT).show()
+            return
         }
         val descText = binding.edDesc.text.toString().trim()
 
@@ -116,18 +119,19 @@ class NuevaReunionActivity : AppCompatActivity() , OnMapReadyCallback,
         val refReunion = reference.child("reuniones")
         val reuId = refReunion.push().key
         if (reuId != null) {
+            User.reunion= ReunionEmpty()
+            User.reunion!!.hora = reunion.hora
+            User.reunion!!.descripcion = reunion.descripcion
+            User.reunion!!.latitud = reunion.latitud
+            User.reunion!!.longitud = reunion.longitud
+            User.reunionId=reuId
             refReunion.child(reuId).setValue(reunion).addOnSuccessListener {
                reference.child("invitados/$reuId/$uid").setValue("pendiente").addOnSuccessListener {
                    reference.child("invitaciones/$uid/${User.uid}").setValue(reuId).addOnSuccessListener {
                        reference.child("invitados/$reuId/${User.uid}").setValue("asiste").addOnSuccessListener {
                            reference.child("activos/${User.uid}").setValue(reuId).addOnSuccessListener {
+                               ReunionesFragment.res.should=true
                                Toast.makeText(this,"Reunion Creada con exito",Toast.LENGTH_SHORT).show()
-                               User.reunion= ReunionEmpty()
-                               User.reunion!!.hora = reunion.hora
-                               User.reunion!!.descripcion = reunion.descripcion
-                               User.reunion!!.latitud = reunion.latitud
-                               User.reunion!!.longitud = reunion.longitud
-                               User.reunionId=reuId
                                finish()
                            }
                        }

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -17,6 +18,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".background.LocationApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,11 +29,48 @@
         android:theme="@style/Theme.IOT_ProyectoIndividual"
         tools:targetApi="31">
         <activity
+            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar"
+            android:name=".admin.UnbanUserActivity"
+            android:exported="false"
+            android:label="Unban">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".admin.BanUserActivity"
+            android:exported="false"
+            android:label="Formulario"
+            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".admin.MainAdminActivity"
+            android:exported="false"
+            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <service
+            android:name=".background.LocationService"
+            android:foregroundServiceType="location" />
+
+        <activity
             android:name=".cliente.VerInvitadosActivity"
             android:exported="false"
-            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar"
             android:label="Invitados"
-            >
+            android:theme="@style/Theme.IOT_ProyectoIndividual.actionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -110,13 +149,6 @@
         </activity>
         <activity
             android:name=".CrearCuentaActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

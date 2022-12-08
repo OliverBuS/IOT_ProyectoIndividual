@@ -69,7 +69,9 @@ class VerReunionActivity : AppCompatActivity(), OnMapReadyCallback {
                         User.reunion!!.latitud = lat
                         User.reunion!!.longitud = lon
                         User.reunionId=idReunion
-                        finish()
+                        val intent = Intent(this,ClienteHomeActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
                     }
                 }
             }

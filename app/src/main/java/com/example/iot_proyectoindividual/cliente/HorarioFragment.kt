@@ -174,9 +174,7 @@ class HorarioFragment : Fragment() {
             }
 
         }
-
         return binding.root
-
     }
 
     private fun reloadDay() {

@@ -10,16 +10,14 @@ data class Horario(
     var jueves: Int?=null,
     var viernes: Int?=null,
     var sabado: Int?=null,
-){
+) : java.io.Serializable{
     fun disponible() : Int {
 
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
         var binHoras = MyFunctions.obtenerBinario(0)
-
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
-
-        if(hour<7 || hour>22 || Calendar.SUNDAY==day){
+        if(hour<7 || hour>=22 || Calendar.SUNDAY==day){
             return -1
         }
         when(day){
@@ -48,7 +46,7 @@ data class Horario(
             return 0
         }
 
-        for(i in (hour-6)..13){
+        for(i in (hour-6)..14){
             if(binHoras[i]=='0'){
                 return horaLibre
             }
@@ -94,7 +92,7 @@ data class Horario(
             return 0
         }
 
-        for(i in (hour-6)..13){
+        for(i in (hour-6)..14){
             if(binHoras[i]=='0'){
                 return horaLibre
             }

@@ -1,6 +1,7 @@
 package com.example.iot_proyectoindividual.cliente
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,10 @@ class ReunionesFragment : Fragment() {
     private lateinit var recycle: RecyclerView
     private lateinit var invitaciones: ArrayList<ReunionNotificacion>
 
+    object res{
+        var should=false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,18 +61,18 @@ class ReunionesFragment : Fragment() {
 
                 }
                 invitaciones = listaInvitaciones
-                if(listaInvitaciones.isEmpty()){
+                Log.d("Oliver","valor de res ${res.should}|")
+                reloadLista()
+                if(res.should){
+                    res.should=false
+                    Log.d("Oliver","aqui si pasa")
                     activity?.recreate()
                 }
-                reloadLista()
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-
-
         return binding.root
     }
 
