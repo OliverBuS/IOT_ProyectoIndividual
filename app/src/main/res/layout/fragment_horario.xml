@@ -123,7 +123,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="7:00 - 8:00"
                         android:textSize="18sp" />
 
@@ -136,7 +135,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="8:00 - 9:00"
                         android:textSize="18sp" />
 
@@ -149,7 +147,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="9:00 - 10:00"
                         android:textSize="18sp" />
 
@@ -162,7 +159,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="10:00 - 11:00"
                         android:textSize="18sp" />
 
@@ -175,7 +171,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="11:00 - 12:00"
                         android:textSize="18sp" />
 
@@ -188,7 +183,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="12:00 - 13:00"
                         android:textSize="18sp" />
 
@@ -201,7 +195,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="13:00 - 14:00"
                         android:textSize="18sp" />
 
@@ -213,7 +206,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="14:00 - 15:00"
                         android:textSize="18sp" />
 
@@ -225,7 +217,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="15:00 - 16:00"
                         android:textSize="18sp" />
 
@@ -238,7 +229,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="16:00 - 17:00"
                         android:textSize="18sp" />
 
@@ -251,7 +241,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="17:00 - 18:00"
                         android:textSize="18sp" />
 
@@ -264,7 +253,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="18:00 - 19:00"
                         android:textSize="18sp" />
 
@@ -277,7 +265,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="19:00 - 20:00"
                         android:textSize="18sp" />
 
@@ -290,7 +277,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="20:00 - 21:00"
                         android:textSize="18sp" />
 
@@ -303,7 +289,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:paddingHorizontal="24dp"
                         android:text="21:00 -22:00"
                         android:textSize="18sp" />
 

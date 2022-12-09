@@ -66,6 +66,7 @@ class LocationService:Service() {
             .getLocationUpdates(10_000L) //600_000L
             .catch { e->
                 e.printStackTrace()
+                Coordenadas.inPucp=false
                 val updatedNotification = notification.setContentText(
                     "No se puede verificar la localización"
                 )
@@ -89,8 +90,9 @@ class LocationService:Service() {
                     Coordenadas.inPucp=true
                     message = "Si"
                     amigo.disponible = User.usuario.horario?.disponible()
+                } else{
+                    Coordenadas.inPucp=false
                 }
-                message = "$lat / $lon  $message"
 
                 val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 val date: String = df.format(Calendar.getInstance().time)

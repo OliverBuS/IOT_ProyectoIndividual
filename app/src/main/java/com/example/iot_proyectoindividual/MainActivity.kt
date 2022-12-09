@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 mAuth.signInWithEmailAndPassword(correo, password)
                     .addOnCompleteListener {
                         //mAuth.currentUser?.isEmailVerified == true
-                        if (it.isSuccessful ) {
+                        if (it.isSuccessful && mAuth.currentUser?.isEmailVerified == true) {
                             User.uid= mAuth.currentUser!!.uid
                             database.child("usuarios/${mAuth.currentUser?.uid}").get()
                                 .addOnSuccessListener {

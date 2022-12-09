@@ -19,6 +19,8 @@ import com.example.iot_proyectoindividual.entity.Amigo
 import com.example.iot_proyectoindividual.entity.Ban
 import com.example.iot_proyectoindividual.entity.ReunionEmpty
 import com.example.iot_proyectoindividual.entity.Usuario
+import com.example.iot_proyectoindividual.save.Coordenadas
+import com.example.iot_proyectoindividual.save.Coordenadas.lat
 import com.example.iot_proyectoindividual.save.RelacionesUsuario
 import com.example.iot_proyectoindividual.save.User
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -65,8 +67,7 @@ class ClienteHomeActivity : AppCompatActivity() {
         binding = ActivityClienteHomeBinding.inflate(layoutInflater)
 
 
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        getLocation()
         ref = Firebase.database.reference
         context=this
         ref.child("activos/${User.uid}").get().addOnSuccessListener {
@@ -103,7 +104,6 @@ class ClienteHomeActivity : AppCompatActivity() {
 
 
         setContentView(binding.root)
-        //getLocation()
 
         if(!NavValue.ejecutado){
             NavValue.ejecutado=true
@@ -238,8 +238,6 @@ class ClienteHomeActivity : AppCompatActivity() {
 
 
     private fun getLocation() {
-        val task = fusedLocationProviderClient.lastLocation
-
         if (ActivityCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -258,24 +256,6 @@ class ClienteHomeActivity : AppCompatActivity() {
             )
             return
         }
-
-        task.addOnSuccessListener {
-            if (it != null) {
-                //Toast.makeText(this, "${it.latitude} ${it.longitude}", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        val amigo = Amigo()
-        amigo.disponible = User.usuario.horario?.disponible()
-        amigo.estado = User.usuario.estado
-        amigo.imagen = User.usuario.imagen
-        amigo.nombre = User.usuario.nombre
-
-        val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val date: String = df.format(Calendar.getInstance().time)
-        amigo.time = date
-        Firebase.database.reference.child("amigos/${User.uid}").setValue(amigo)
-
     }
 
 
