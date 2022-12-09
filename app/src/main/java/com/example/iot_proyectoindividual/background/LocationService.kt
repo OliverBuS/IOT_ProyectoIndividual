@@ -66,49 +66,49 @@ class LocationService:Service() {
             .getLocationUpdates(10_000L) //600_000L
             .catch { e->
                 e.printStackTrace()
-                Coordenadas.inPucp=false
-                val updatedNotification = notification.setContentText(
-                    "No se puede verificar la localización"
-                )
-                notificationManager.notify(1,updatedNotification.build())
-            }
-            .onEach { location ->
-                val lat = location.latitude
-                val lon = location.longitude
-                var message = "No"
+                Coordenadas.inPucp=true
 
                 val amigo = Amigo()
-                amigo.disponible = -1
+                amigo.disponible = User.usuario.horario?.disponible()
                 amigo.estado = User.usuario.estado
                 amigo.imagen = User.usuario.imagen
                 amigo.nombre = User.usuario.nombre
-
-                if(-12.064598 > lat && lat > -12.074049
-                    &&
-                    -77.076378>lon  && lon> -77.083585)
-                {
-                    Coordenadas.inPucp=true
-                    message = "Si"
-                    amigo.disponible = User.usuario.horario?.disponible()
-                } else{
-                    Coordenadas.inPucp=false
-                }
 
                 val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 val date: String = df.format(Calendar.getInstance().time)
                 amigo.time = date
                 Firebase.database.reference.child("amigos/${User.uid}").setValue(amigo)
 
-                val updatedNotification = notification.setContentText(
-                    "En la pucp : $message"
-                )
+                Firebase.database.reference.child("invitaciones/${User.uid}").get().addOnSuccessListener {
+                    if(it.exists()){
+                        val updatedNotification2 = notification.setContentText("Tienes invitaciones para reunirte").setContentTitle("Tienes una invitacion")
+                        notificationManager.notify(1,updatedNotification2.build())
+                    } else{
+                        notificationManager.cancel(1)
+                    }
+                }
+
+            }
+            .onEach { location ->
+
+                val amigo = Amigo()
+                amigo.disponible = User.usuario.horario?.disponible()
+                amigo.estado = User.usuario.estado
+                amigo.imagen = User.usuario.imagen
+                amigo.nombre = User.usuario.nombre
+                Coordenadas.inPucp=true
+
+                val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                val date: String = df.format(Calendar.getInstance().time)
+                amigo.time = date
+                Firebase.database.reference.child("amigos/${User.uid}").setValue(amigo)
 
                 Firebase.database.reference.child("invitaciones/${User.uid}").get().addOnSuccessListener {
                     if(it.exists()){
                         val updatedNotification2 = notification.setContentText("Tienes invitaciones para reunirte").setContentTitle("Tienes una invitacion")
                         notificationManager.notify(1,updatedNotification2.build())
                     } else{
-                        notificationManager.notify(1,updatedNotification.build())
+                        notificationManager.cancel(1)
                     }
                 }
 

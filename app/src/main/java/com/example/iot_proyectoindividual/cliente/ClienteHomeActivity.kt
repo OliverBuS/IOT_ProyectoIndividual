@@ -67,7 +67,6 @@ class ClienteHomeActivity : AppCompatActivity() {
         binding = ActivityClienteHomeBinding.inflate(layoutInflater)
 
 
-        getLocation()
         ref = Firebase.database.reference
         context=this
         ref.child("activos/${User.uid}").get().addOnSuccessListener {
